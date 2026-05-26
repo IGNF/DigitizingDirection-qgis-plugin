@@ -12,8 +12,9 @@ email=gerome.pecheur@ign.fr
 
 about=Affichage des sens de numérisation des entités d'un layer actif
 
-#tracker=http://bugs
-#repository=http://repo
+homepage=http://homepage
+tracker=https://github.com/IGNF/sens_numerisation-qgis-plugin/issues
+repository=https://github.com/IGNF/sens_numerisation-qgis-plugin
 # End of mandatory metadata
 
 # Recommended items:
@@ -26,7 +27,7 @@ changelog=
 # Tags are comma separated with spaces allowed
 tags=analysis , python
 
-#homepage=http://homepage
+
 category=Plugins
 icon=icons/icon_principal.png
 # experimental flag
