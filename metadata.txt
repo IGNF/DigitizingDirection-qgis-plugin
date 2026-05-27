@@ -5,6 +5,7 @@
 [general]
 name=IGN sens de numérisation
 qgisMinimumVersion=3.0
+qgisMaximumVersion=4.99
 description=Affichage des sens de numérisation des entités d'un layer actif
 version=0.1.0_recette
 author=Gérôme PECHEUR (IGN)
