@@ -1,5 +1,5 @@
 from qgis.PyQt.QtGui import QColor
-from qgis.core import (QgsRendererCategory, QgsCategorizedSymbolRenderer,QgsSimpleMarkerSymbolLayer,
+from qgis.core import (QgsRendererCategory, QgsCategorizedSymbolRenderer,
                        QgsSymbol, QgsWkbTypes, QgsMarkerLineSymbolLayer,QgsSingleSymbolRenderer,
                        QgsRuleBasedRenderer, QgsProject)
 
@@ -20,7 +20,7 @@ class SensNumerisation:
     def init_symbole(self):
         # Créer le triangle comme SimpleMarkerLayer
         triangle_layer = QgsSimpleMarkerSymbolLayer()
-        triangle_layer.setShape(QgsSimpleMarkerSymbolLayer.Triangle)
+        triangle_layer.setShape(Triangle)
         triangle_layer.setColor(QColor(0, 0, 255))
         triangle_layer.setSize(2)
         triangle_layer.setAngle(90)
@@ -133,7 +133,7 @@ class SensNumerisation:
     def run(self):
         projet = QgsProject.instance()
         if len(projet.mapLayers()) <= 0:
-            QMessageBox.warning(self.iface.mainWindow(), "Attention", "veuillez charger un projet", QMessageBox.Ok)
+            QMessageBox.warning(self.iface.mainWindow(), "Attention", "veuillez charger un projet", Ok)
             return
         self.layer = self.iface.activeLayer()
         if not self.layer:

@@ -1,5 +1,6 @@
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QTabBar,QMessageBox,QAbstractItemView,QListWidget
+from qgis.core import QgsSimpleMarkerSymbolLayer,QgsMarkerLineSymbolLayer
 
 # QT6
 try :
@@ -16,8 +17,11 @@ try :
     LeftSide = QTabBar.ButtonPosition.LeftSide
     Warning = QMessageBox.Icon.Warning
     YesRole = QMessageBox.ButtonRole.YesRole
+    Ok = QMessageBox.StandardButton.Ok
     AcceptRole = QMessageBox.ButtonRole.AcceptRole
     NoSelection = QAbstractItemView.SelectionMode.NoSelection
+    Triangle = QgsSimpleMarkerSymbolLayer.Shape.Triangle
+    Interval = QgsMarkerLineSymbolLayer.Placement.Interval
 # QT5
 except :
     Dialog = Qt.Dialog
@@ -33,5 +37,8 @@ except :
     LeftSide = QTabBar.LeftSide
     Warning = QMessageBox.Warning
     YesRole = QMessageBox.YesRole
+    Ok = QMessageBox.Ok
     AcceptRole = QMessageBox.AcceptRole
     NoSelection = QListWidget.NoSelection
+    Triangle = QgsSimpleMarkerSymbolLayer.Triangle
+    Interval = QgsMarkerLineSymbolLayer.Interval
