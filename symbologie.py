@@ -1,7 +1,6 @@
 from qgis.PyQt.QtGui import QColor
-from qgis.core import (QgsRendererCategory, QgsCategorizedSymbolRenderer,
-                       QgsSymbol, QgsWkbTypes, QgsMarkerLineSymbolLayer,QgsSingleSymbolRenderer,
-                       QgsRuleBasedRenderer, QgsProject)
+from qgis.core import (Qgis,QgsRendererCategory, QgsCategorizedSymbolRenderer,QgsSymbol,QgsWkbTypes
+            ,QgsSingleSymbolRenderer, QgsRuleBasedRenderer, QgsProject)
 
 from .mapping_version import *
 
@@ -138,7 +137,12 @@ class SensNumerisation:
         self.layer = self.iface.activeLayer()
         if not self.layer:
             return
-        print(self.is_affiche_sens_num)
+
+        if self.layer.geometryType() != QgsWkbTypes.LineGeometry:
+            text = "Afficher le sens de numérisation : Le layer doit être du type linéaire"
+            self.iface.messageBar().pushMessage("Avertissement",text,level=Qgis.Warning,duration=4)
+            return
+
         if self.is_affiche_sens_num:
             self.suppr_symb_sens_num(self.layer)
             self.is_affiche_sens_num = False
