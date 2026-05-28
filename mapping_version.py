@@ -21,6 +21,7 @@ try :
     AcceptRole = QMessageBox.ButtonRole.AcceptRole
     NoSelection = QAbstractItemView.SelectionMode.NoSelection
     Triangle = QgsSimpleMarkerSymbolLayer.Shape.Triangle
+    Arrow = QgsSimpleMarkerSymbolLayer.Shape.Arrow
     Interval = QgsMarkerLineSymbolLayer.Placement.Interval
 # QT5
 except :
@@ -41,4 +42,5 @@ except :
     AcceptRole = QMessageBox.AcceptRole
     NoSelection = QListWidget.NoSelection
     Triangle = QgsSimpleMarkerSymbolLayer.Triangle
+    Arrow = QgsSimpleMarkerSymbolLayer.Arrow
     Interval = QgsMarkerLineSymbolLayer.Interval

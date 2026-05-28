@@ -1,6 +1,6 @@
 from qgis.PyQt.QtGui import QColor
 from qgis.core import (Qgis,QgsRendererCategory, QgsCategorizedSymbolRenderer,QgsSymbol,QgsWkbTypes
-            ,QgsSingleSymbolRenderer, QgsRuleBasedRenderer, QgsProject)
+            ,QgsSingleSymbolRenderer, QgsRuleBasedRenderer, QgsProject,QgsUnitTypes, QgsMapUnitScale)
 
 from .mapping_version import *
 
@@ -19,9 +19,10 @@ class SensNumerisation:
     def init_symbole(self):
         # Créer le triangle comme SimpleMarkerLayer
         triangle_layer = QgsSimpleMarkerSymbolLayer()
-        triangle_layer.setShape(Triangle)
-        triangle_layer.setColor(QColor(0, 0, 255))
-        triangle_layer.setSize(2)
+        # triangle_layer.setShape(Triangle)
+        triangle_layer.setShape(Arrow)
+        triangle_layer.setColor(QColor(255, 0, 0))
+        triangle_layer.setSize(12)
         triangle_layer.setAngle(90)
 
         # Créer un QgsSymbol pour le MarkerLine
@@ -29,14 +30,20 @@ class SensNumerisation:
         triangle_symbol.deleteSymbolLayer(0)  # supprime le SimpleMarker par défaut
         triangle_symbol.appendSymbolLayer(triangle_layer)
 
+        triangle_symbol.setSizeUnit(QgsUnitTypes.RenderMapUnits)
+        triangle_symbol.setSizeMapUnitScale(QgsMapUnitScale(0, 0))
+
+        # marque ligne
         ml = QgsMarkerLineSymbolLayer()
-        ml.setSubSymbol(triangle_symbol)  # ⚡ ici on passe un QgsSymbol
+        ml.setSubSymbol(triangle_symbol)  #  ici on passe un QgsSymbol
         ml.setPlacement(QgsMarkerLineSymbolLayer.Interval)
-        ml.setInterval(20)
-        ml.setOffset(0)
+        ml.setInterval(30)
+        ml.setIntervalUnit(QgsUnitTypes.RenderMapUnits)
+        # ml.setOffset(1)
+        # ml.setOffsetUnit(QgsUnitTypes.RenderMapUnits)
         return ml
 
-    def add_symb_sens_num(self,layer):
+    def add_symb_sens_num_all_layer(self,layer):
         renderer = layer.renderer()
 
         if renderer.type() == "singleSymbol":
@@ -80,6 +87,76 @@ class SensNumerisation:
             layer.setRenderer(new_renderer)
         layer.triggerRepaint()
 
+    def add_symb_sens_num(self, layer):
+        renderer = layer.renderer()
+        # =========================
+        # SINGLE SYMBOL
+        # =========================
+        if renderer.type() == "singleSymbol":
+            base_symbol = renderer.symbol().clone()
+            # Symbole spécial sélection
+            selected_symbol = base_symbol.clone()
+            ml = self.init_symbole()
+            selected_symbol.appendSymbolLayer(ml)
+            # Règle sélection
+            selected_rule = QgsRuleBasedRenderer.Rule(selected_symbol)
+            selected_rule.setFilterExpression("is_selected()")
+            # Règle normale
+            normal_rule = QgsRuleBasedRenderer.Rule(base_symbol)
+            normal_rule.setIsElse(True)
+            root = QgsRuleBasedRenderer.Rule(None)
+            root.appendChild(selected_rule)
+            root.appendChild(normal_rule)
+            layer.setRenderer(QgsRuleBasedRenderer(root))
+
+        # =========================
+        # RULE RENDERER
+        # =========================
+        elif renderer.type() == "RuleRenderer":
+            root = QgsRuleBasedRenderer.Rule(None)
+            rules_to_process = renderer.rootRule().children()
+            for rule in rules_to_process:
+                # symbole normal
+                normal_rule = rule.clone()
+                # symbole sélection
+                selected_symbol = rule.symbol().clone()
+                ml = self.init_symbole()
+                selected_symbol.appendSymbolLayer(ml)
+                selected_rule = QgsRuleBasedRenderer.Rule(selected_symbol)
+                selected_rule.setFilterExpression(
+                    f"is_selected() AND ({rule.filterExpression()})"
+                    if rule.filterExpression()
+                    else "is_selected()"
+                )
+                root.appendChild(selected_rule)
+                root.appendChild(normal_rule)
+            layer.setRenderer(QgsRuleBasedRenderer(root))
+
+        # =========================
+        # CATEGORIZED SYMBOL
+        # =========================
+        elif renderer.type() == "categorizedSymbol":
+            root = QgsRuleBasedRenderer.Rule(None)
+            field_name = renderer.classAttribute()
+            for cat in renderer.categories():
+                # expression catégorie
+                expr = f"\"{field_name}\" = '{cat.value()}'"
+                # symbole normal
+                normal_symbol = cat.symbol().clone()
+                normal_rule = QgsRuleBasedRenderer.Rule(normal_symbol)
+                normal_rule.setFilterExpression(expr)
+                # symbole sélection
+                selected_symbol = cat.symbol().clone()
+                ml = self.init_symbole()
+                selected_symbol.appendSymbolLayer(ml)
+                selected_rule = QgsRuleBasedRenderer.Rule(selected_symbol)
+                selected_rule.setFilterExpression(
+                    f"is_selected() AND {expr}"
+                )
+                root.appendChild(selected_rule)
+                root.appendChild(normal_rule)
+            layer.setRenderer(QgsRuleBasedRenderer(root))
+        layer.triggerRepaint()
 
     def suppr_symb_sens_num(self,layer):
         renderer = layer.renderer()
@@ -129,6 +206,11 @@ class SensNumerisation:
             layer.setRenderer(new_renderer)
         layer.triggerRepaint()
 
+    def restore_renderer(self, layer):
+        orig = layer.customProperty("orig_renderer")
+        if orig:
+            layer.setRenderer(orig.clone())
+
     def run(self):
         projet = QgsProject.instance()
         if len(projet.mapLayers()) <= 0:
@@ -143,10 +225,21 @@ class SensNumerisation:
             self.iface.messageBar().pushMessage("Avertissement",text,level=Qgis.Warning,duration=4)
             return
 
+        if not self.layer.customProperty("orig_renderer"):
+            self.layer.setCustomProperty(
+                "orig_renderer",
+                self.layer.renderer().clone()
+            )
+
         if self.is_affiche_sens_num:
-            self.suppr_symb_sens_num(self.layer)
+            # self.suppr_symb_sens_num(self.layer)
+            self.restore_renderer(self.layer)
             self.is_affiche_sens_num = False
         else:
-            self.add_symb_sens_num(self.layer)
+            # self.suppr_symb_sens_num(self.layer)
+            if self.layer.selectedFeatureCount():
+                self.add_symb_sens_num(self.layer)
+            else:
+                self.add_symb_sens_num_all_layer(self.layer)
             self.is_affiche_sens_num = True
         self.layer.triggerRepaint()
