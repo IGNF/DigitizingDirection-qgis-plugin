@@ -24,11 +24,11 @@ alt="logo_IGN_pour_lettre" /></td>
 
 **Sommaire**
 
-[1 Prérequis [2](#prérequis)](#prérequis)
+[1 Prérequis](#prérequis)
 
-[2 Présentation [2](#présentation)](#présentation)
+[2 Présentation](#présentation)
 
-[3 Utilisation [2](#utilisation)](#utilisation)
+[3 Utilisation](#utilisation)
 
 # Prérequis
 

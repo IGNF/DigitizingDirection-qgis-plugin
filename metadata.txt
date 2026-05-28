@@ -13,7 +13,7 @@ email=gerome.pecheur@ign.fr
 
 about=Affichage des sens de numérisation des entités d'un layer actif
 
-homepage=http://homepage
+homepage=https://ignf.github.io/sens_numerisation-qgis-plugin/
 tracker=https://github.com/IGNF/sens_numerisation-qgis-plugin/issues
 repository=https://github.com/IGNF/sens_numerisation-qgis-plugin
 # End of mandatory metadata

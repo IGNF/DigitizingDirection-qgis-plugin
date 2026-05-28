@@ -25,9 +25,8 @@ English :
 
 ## Ressources
 
-User documentation : 
+User documentation : https://ignf.github.io/sens_numerisation-qgis-plugin/
 
-![Digitization direction](docs/digitization_direction.jpg)
 
 ## Licence
 
