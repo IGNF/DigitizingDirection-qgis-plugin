@@ -5,15 +5,17 @@
 [general]
 name=IGN sens de numérisation
 qgisMinimumVersion=3.0
+qgisMaximumVersion=4.99
 description=Affichage des sens de numérisation des entités d'un layer actif
-version=0.1.0
+version=0.4.0
 author=Gérôme PECHEUR (IGN)
 email=gerome.pecheur@ign.fr
 
 about=Affichage des sens de numérisation des entités d'un layer actif
 
-#tracker=http://bugs
-#repository=http://repo
+homepage=https://ignf.github.io/sens_numerisation-qgis-plugin/
+tracker=https://github.com/IGNF/sens_numerisation-qgis-plugin/issues
+repository=https://github.com/IGNF/sens_numerisation-qgis-plugin
 # End of mandatory metadata
 
 # Recommended items:
@@ -21,12 +23,12 @@ about=Affichage des sens de numérisation des entités d'un layer actif
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
-	v0.0.1 : version initiale
+	v0.4.0 : version initiale
 
 # Tags are comma separated with spaces allowed
 tags=analysis , python
 
-#homepage=http://homepage
+
 category=Plugins
 icon=icons/icon_principal.png
 # experimental flag
