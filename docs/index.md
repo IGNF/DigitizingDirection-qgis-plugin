@@ -20,7 +20,7 @@ alt="logo_IGN_pour_lettre" /></td>
 | Version | Date       | Modifié par    | Historique des modifications |
 |---------|------------|----------------|:----------------------------:|
 |         |            |                |                              |
-| 1.0.0   | 07/07/2025 | Gérôme PECHEUR |  Première version diffusée   |
+| 0.4.0   | 08/06/2026 | Gérôme PECHEUR |  Première version diffusée   |
 
 **Sommaire**
 
@@ -30,13 +30,13 @@ alt="logo_IGN_pour_lettre" /></td>
 
 [3 Utilisation](#utilisation)
 
-# Prérequis
+# 1. Prérequis
 
 - Version de QGIS : 3.28 ou supérieur
 
 - Le plugin « maitre » doit préalablement être installé et configuré
 
-# Présentation 
+# 2. Présentation 
 
 Ce plugin affiche sur le layer actif, le sens de numérisation sous la
 forme d’une petite flèche sur chaque entité
@@ -48,7 +48,7 @@ bouton<img src="images/image2.png"
 style="width:0.29025in;height:0.27498in" /> dans la barre d’outils
 (suivant la configuration du plugin maitre)
 
-# Utilisation 
+# 3. Utilisation 
 
 Si on essaye d’afficher le sens de numérisation sur un layer qui n’est
 pas de type linéaire, un warning s’affiche dans QGIS
