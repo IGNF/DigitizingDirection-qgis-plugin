@@ -10,7 +10,7 @@ style="width:1.38681in;height:1.47153in"
 alt="logo_IGN_pour_lettre" /></td>
 <td style="text-align: center;"><p><strong>Manuel utilisateur du plugin
 «sens de numérisation» </strong></p>
-<p><strong>v0.4.0</strong></p></td>
+<p><strong>v0.4.1</strong></p></td>
 </tr>
 <tr>
 <td style="font-size: 16px;text-align: center;">Développeur  : Gérôme PECHEUR (IGN)</td>
