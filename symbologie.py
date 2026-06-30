@@ -220,10 +220,10 @@ class SensNumerisation:
         if not self.layer:
             return
 
-        if self.layer.geometryType() != QgsWkbTypes.LineGeometry:
-            text = "Afficher le sens de numérisation : Le layer doit être du type linéaire"
-            self.iface.messageBar().pushMessage("Avertissement",text,level=Qgis.Warning,duration=4)
-            return
+        # if self.layer.geometryType() != QgsWkbTypes.LineGeometry:
+        #     text = "Afficher le sens de numérisation : Le layer doit être du type linéaire"
+        #     self.iface.messageBar().pushMessage("Avertissement",text,level=Qgis.Warning,duration=4)
+        #     return
 
         if not self.layer.customProperty("orig_renderer"):
             self.layer.setCustomProperty(
