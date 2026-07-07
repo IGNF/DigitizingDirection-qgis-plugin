@@ -6,6 +6,7 @@ from .mapping_version import *
 
 class SensNumerisation:
     def __init__(self, iface):
+        self.saved_renderers = {}
         self.layer = None
         self.iface = iface
         self.is_affiche_sens_num = False
@@ -207,9 +208,21 @@ class SensNumerisation:
         layer.triggerRepaint()
 
     def restore_renderer(self, layer):
-        orig = layer.customProperty("orig_renderer")
-        if orig:
-            layer.setRenderer(orig.clone())
+        renderer = self.saved_renderers.get(layer.id())
+        if renderer is not None:
+            try:
+                layer.styleChanged.disconnect(self.on_style_changed)
+            except TypeError:
+                pass
+            layer.setRenderer(renderer.clone())
+            layer.styleChanged.connect(self.on_style_changed)
+            layer.triggerRepaint()
+
+    def on_style_changed(self):
+        if self.layer is None:
+            return
+        if not self.is_affiche_sens_num:
+            self.saved_renderers[self.layer.id()] = self.layer.renderer().clone()
 
     def run(self):
         projet = QgsProject.instance()
@@ -220,26 +233,29 @@ class SensNumerisation:
         if not self.layer:
             return
 
-        # if self.layer.geometryType() != QgsWkbTypes.LineGeometry:
-        #     text = "Afficher le sens de numérisation : Le layer doit être du type linéaire"
-        #     self.iface.messageBar().pushMessage("Avertissement",text,level=Qgis.Warning,duration=4)
-        #     return
+        # événement de changement de style du layer pour sauvegarder le style original
+        try:
+            self.layer.styleChanged.disconnect(self.on_style_changed)
+        except TypeError:
+            pass
+        self.layer.styleChanged.connect(self.on_style_changed)
 
-        if not self.layer.customProperty("orig_renderer"):
-            self.layer.setCustomProperty(
-                "orig_renderer",
-                self.layer.renderer().clone()
-            )
+        if not self.is_affiche_sens_num:
+            self.saved_renderers[self.layer.id()] = self.layer.renderer().clone()
+
 
         if self.is_affiche_sens_num:
             # self.suppr_symb_sens_num(self.layer)
             self.restore_renderer(self.layer)
             self.is_affiche_sens_num = False
         else:
-            # self.suppr_symb_sens_num(self.layer)
+            # sauvegarde AVANT modification
+            self.saved_renderers[self.layer.id()] = self.layer.renderer().clone()
+
+            # bloque le sauvegarde automatique pendant le changement
+            self.is_affiche_sens_num = True
+
             if self.layer.selectedFeatureCount():
                 self.add_symb_sens_num(self.layer)
             else:
                 self.add_symb_sens_num_all_layer(self.layer)
-            self.is_affiche_sens_num = True
-        self.layer.triggerRepaint()
