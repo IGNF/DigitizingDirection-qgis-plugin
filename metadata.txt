@@ -3,15 +3,15 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=IGN sens de numérisation
+name=IGN DigitizingDirection
 qgisMinimumVersion=3.0
 qgisMaximumVersion=4.99
-description=Affichage des sens de numérisation des entités d'un layer actif
+description=Displays the digitizing direction of features by drawing directional arrows, making it easier to verify geometry orientation during editing and quality control
 version=0.4.2
 author=Gérôme PECHEUR (IGN)
 email=gerome.pecheur@ign.fr
 
-about=Affichage des sens de numérisation des entités d'un layer actif
+about=Displays the digitizing direction of features by drawing directional arrows, making it easier to verify geometry orientation during editing and quality control
 
 homepage=https://ignf.github.io/sens_numerisation-qgis-plugin/
 tracker=https://github.com/IGNF/sens_numerisation-qgis-plugin/issues
