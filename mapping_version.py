@@ -24,7 +24,7 @@ try :
     Arrow = QgsSimpleMarkerSymbolLayer.Shape.Arrow
     Interval = QgsMarkerLineSymbolLayer.Placement.Interval
 # QT5
-except :
+except AttributeError:
     Dialog = Qt.Dialog
     WindowCloseButtonHint = Qt.WindowCloseButtonHint
     WindowTitleHint = Qt.WindowTitleHint
