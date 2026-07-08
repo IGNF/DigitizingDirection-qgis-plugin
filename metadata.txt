@@ -3,19 +3,20 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=IGN sens de numérisation
+name=IGN DigitizingDirection
 qgisMinimumVersion=3.0
 qgisMaximumVersion=4.99
-description=Affichage des sens de numérisation des entités d'un layer actif
-version=0.4.1
+description=Displays the digitizing direction of features by drawing directional arrows, making it easier to verify geometry orientation during editing and quality control
+version=0.4.2
 author=Gérôme PECHEUR (IGN)
 email=gerome.pecheur@ign.fr
 
-about=Affichage des sens de numérisation des entités d'un layer actif
+about=Displays the digitizing direction of features by drawing directional arrows, making it easier to verify geometry orientation during editing and quality control
+    The IGN Plugins Manager must be installed first.
 
-homepage=https://ignf.github.io/sens_numerisation-qgis-plugin/
-tracker=https://github.com/IGNF/sens_numerisation-qgis-plugin/issues
-repository=https://github.com/IGNF/sens_numerisation-qgis-plugin
+homepage=https://ignf.github.io/DigitizingDirection-qgis-plugin/
+tracker=https://github.com/IGNF/DigitizingDirection-qgis-plugin/issues
+repository=https://github.com/IGNF/DigitizingDirection-qgis-plugin
 # End of mandatory metadata
 
 # Recommended items:
@@ -40,7 +41,7 @@ deprecated=False
 # Since QGIS 3.8, a comma separated list of plugins to be installed
 # (or upgraded) can be specified.
 # Check the documentation for more information.
-# plugin_dependencies=
+plugin_dependencies=IGN PluginsManager
 
 Category of the plugin: Raster, Vector, Database or Web
 # category=

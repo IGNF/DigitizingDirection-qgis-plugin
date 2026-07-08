@@ -9,8 +9,8 @@
 style="width:1.38681in;height:1.47153in"
 alt="logo_IGN_pour_lettre" /></td>
 <td style="text-align: center;"><p><strong>Manuel utilisateur du plugin
-«sens de numérisation» </strong></p>
-<p><strong>v0.4.1</strong></p></td>
+«DigitizingDirection» </strong></p>
+<p><strong>v0.4.2</strong></p></td>
 </tr>
 <tr>
 <td style="font-size: 16px;text-align: center;">Développeur  : Gérôme PECHEUR (IGN)</td>
@@ -35,8 +35,8 @@ alt="logo_IGN_pour_lettre" /></td>
 
 - Version de QGIS : 3.28 ou supérieur
 
-- Le plugin « maitre » doit préalablement être installé : 
-[maitre-qgis-plugin sur GitHub](https://github.com/IGNF/maitre-qgis-plugin)
+- Le plugin « PluginsManager » doit préalablement être installé : 
+[PluginsManager-qgis-plugin](https://github.com/IGNF/maitre-qgis-plugin/releases/download/version_finale/PluginsManager.zip)
 
 <div  style="background-color: #00ADC5; border: 1px solid black; padding: 5px; text-align: justify;margin-bottom:10px;">
   <h2 id="presentation" style="color: white;margin:0;" >2. Présentation</h2>
